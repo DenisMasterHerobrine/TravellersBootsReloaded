@@ -1,0 +1,28 @@
+{
+  "schemaVersion": 1,
+  "id": "travellersboots",
+  "version": "${version}",
+
+  "name": "Traveller's Boots: Reloaded",
+  "description": "A new and rewritten version of original Traveller's Boots for 1.19.2+ using modern Architectury toolchain.",
+  "authors": ["DenisMasterHerobrine"],
+  "contact": {
+    "issues": "https://github.com/DenisMasterHerobrine/TravellersBootsReloaded/issues"
+  },
+  "license": "MIT",
+  "icon": "icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "dev.denismasterherobrine.travellersbootsreloaded.fabric.TravellersBootsReloadedFabric"
+    ]
+  },
+  "mixins": [
+    "travellersboots.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.14.10",
+    "minecraft": ">=1.19"
+  }
+}
