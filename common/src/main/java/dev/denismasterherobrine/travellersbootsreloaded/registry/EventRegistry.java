@@ -9,9 +9,22 @@ import java.util.UUID;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicReference;
 
+import static dev.denismasterherobrine.travellersbootsreloaded.TravellersBootsReloaded.config;
 import static dev.denismasterherobrine.travellersbootsreloaded.registry.ItemRegistry.*;
 
 public class EventRegistry {
+    static boolean isStepHeightEnabled = config.getBoolean("isStepHeightEnabled");
+
+    static int speedModifierTier1 = config.getInteger("speedModifierTier1");
+    static int speedModifierTier2 = config.getInteger("speedModifierTier2");
+    static int speedModifierTier3 = config.getInteger("speedModifierTier3");
+    static int speedModifierTier4 = config.getInteger("speedModifierTier4");
+    static int speedModifierTier5 = config.getInteger("speedModifierTier5");
+
+    static int jumpModifierTier4 = config.getInteger("jumpModifierTier4");
+    static int jumpModifierTier5 = config.getInteger("jumpModifierTier5");
+
+
     public static void register() {
         AtomicReference<UUID> uuid = new AtomicReference<>();
 
@@ -20,49 +33,49 @@ public class EventRegistry {
                 (player) -> {
                     uuid.set(player.getUUID());
 
-                    AtomicInteger currentBootsTier = new AtomicInteger(0);
+                    if (isStepHeightEnabled) {
+                        AtomicInteger currentBootsTier = new AtomicInteger(0);
 
-                    player.getArmorSlots().forEach(itemStack -> {
-                        if (itemStack.getItem().getDefaultInstance().getItem() == TRAVELLERS_BOOTS_TIER_1.get()) {
-                            currentBootsTier.set(1);
-                        }
-
-                        if (itemStack.getItem().getDefaultInstance().getItem() == TRAVELLERS_BOOTS_TIER_2.get()) {
-                            currentBootsTier.set(2);
-                        }
-
-                        if (itemStack.getItem().getDefaultInstance().getItem() == TRAVELLERS_BOOTS_TIER_3.get()) {
-                            currentBootsTier.set(3);
-                        }
-
-                        if (itemStack.getItem().getDefaultInstance().getItem() == TRAVELLERS_BOOTS_TIER_4.get()) {
-                            currentBootsTier.set(4);
-                        }
-
-                        if (itemStack.getItem().getDefaultInstance().getItem() == TRAVELLERS_BOOTS_TIER_5.get()) {
-                            currentBootsTier.set(5);
-                        }
-                    });
-
-                    switch (currentBootsTier.getPlain()) {
-                        case 0: {
-                            // We should basically solve a max step issue with Mystical Agriculture Step Assist modifier.
-                            // We should doesn't modify the maxUpStep if other mods are already trying to do this.
-                            if (player.isShiftKeyDown()) {
-                                player.maxUpStep = 0.6f;
-                            } else {
-                                player.maxUpStep = 0.75f;
+                        player.getArmorSlots().forEach(itemStack -> {
+                            if (itemStack.getItem().getDefaultInstance().getItem() == TRAVELLERS_BOOTS_TIER_1.get()) {
+                                currentBootsTier.set(1);
                             }
-                            break;
-                        }
 
-                        case 2, 3, 4, 5: {
-                            if (player.isShiftKeyDown()) {
-                                player.maxUpStep = 0.6f;
-                            } else {
-                                player.maxUpStep = 1.25f;
+                            if (itemStack.getItem().getDefaultInstance().getItem() == TRAVELLERS_BOOTS_TIER_2.get()) {
+                                currentBootsTier.set(2);
                             }
-                            break;
+
+                            if (itemStack.getItem().getDefaultInstance().getItem() == TRAVELLERS_BOOTS_TIER_3.get()) {
+                                currentBootsTier.set(3);
+                            }
+
+                            if (itemStack.getItem().getDefaultInstance().getItem() == TRAVELLERS_BOOTS_TIER_4.get()) {
+                                currentBootsTier.set(4);
+                            }
+
+                            if (itemStack.getItem().getDefaultInstance().getItem() == TRAVELLERS_BOOTS_TIER_5.get()) {
+                                currentBootsTier.set(5);
+                            }
+                        });
+
+                        switch (currentBootsTier.getPlain()) {
+                            case 0: {
+                                if (player.isShiftKeyDown()) {
+                                    player.maxUpStep = 0.6f;
+                                } else {
+                                    player.maxUpStep = 0.75f;
+                                }
+                                break;
+                            }
+
+                            case 2, 3, 4, 5: {
+                                if (player.isShiftKeyDown()) {
+                                    player.maxUpStep = 0.6f;
+                                } else {
+                                    player.maxUpStep = 1.25f;
+                                }
+                                break;
+                            }
                         }
                     }
                 }
@@ -101,6 +114,10 @@ public class EventRegistry {
 
                             switch (currentBootsTier.getPlain()) {
                                 case 0: {
+                                    if (!isStepHeightEnabled) {
+                                        break;
+                                    }
+
                                     if (player.isShiftKeyDown() && player.maxUpStep < 1.0f) {
                                         player.maxUpStep = 0.6f;
                                     } else {
@@ -110,12 +127,16 @@ public class EventRegistry {
                                 }
 
                                 case 1: {
-                                    player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 1, 0));
+                                    player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 1, speedModifierTier1));
                                     break;
                                 }
 
                                 case 2: {
-                                    player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 1, 1));
+                                    player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 1, speedModifierTier2));
+
+                                    if (!isStepHeightEnabled) {
+                                        break;
+                                    }
 
                                     if (player.isShiftKeyDown()) {
                                         player.maxUpStep = 0.6f;
@@ -126,7 +147,11 @@ public class EventRegistry {
                                 }
 
                                 case 3: {
-                                    player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 1, 2));
+                                    player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 1, speedModifierTier3));
+
+                                    if (!isStepHeightEnabled) {
+                                        break;
+                                    }
 
                                     if (player.isShiftKeyDown()) {
                                         player.maxUpStep = 0.6f;
@@ -137,8 +162,12 @@ public class EventRegistry {
                                 }
 
                                 case 4: {
-                                    player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 1, 3));
-                                    player.addEffect(new MobEffectInstance(MobEffects.JUMP, 1, 1));
+                                    player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 1, speedModifierTier4));
+                                    player.addEffect(new MobEffectInstance(MobEffects.JUMP, 1, jumpModifierTier4));
+
+                                    if (!isStepHeightEnabled) {
+                                        break;
+                                    }
 
                                     if (player.isShiftKeyDown()) {
                                         player.maxUpStep = 0.6f;
@@ -149,8 +178,12 @@ public class EventRegistry {
                                 }
 
                                 case 5: {
-                                    player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 1, 4));
-                                    player.addEffect(new MobEffectInstance(MobEffects.JUMP, 1, 1));
+                                    player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 1, speedModifierTier5));
+                                    player.addEffect(new MobEffectInstance(MobEffects.JUMP, 1, jumpModifierTier5));
+
+                                    if (!isStepHeightEnabled) {
+                                        break;
+                                    }
 
                                     if (player.isShiftKeyDown()) {
                                         player.maxUpStep = 0.6f;
