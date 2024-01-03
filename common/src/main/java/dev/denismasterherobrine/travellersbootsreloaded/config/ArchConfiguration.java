@@ -132,7 +132,7 @@ public class ArchConfiguration {
                     if (!properties.containsKey(key)) {
                         String defaultValue = defaultProperties.get(key);
                         properties.setProperty(key, defaultValue);
-                        Logger.getLogger(MOD_ID).info("Property " + key + " added with default value " + defaultValue);
+                        Logger.getLogger(MOD_ID).info("[Traveller's Boots: Reloaded - ArchConfiguration] Property " + key + " added with default value " + defaultValue);
                     }
                 }
 
@@ -141,7 +141,7 @@ public class ArchConfiguration {
                 for (String key : keys) {
                     if (!defaultProperties.containsKey(key)) {
                         properties.remove(key);
-                        Logger.getLogger(MOD_ID).info("Property " + key + " removed because it's not in default properties");
+                        Logger.getLogger(MOD_ID).info("[Traveller's Boots: Reloaded - ArchConfiguration] Property " + key + " removed because it's not in default properties");
                     }
                 }
 
