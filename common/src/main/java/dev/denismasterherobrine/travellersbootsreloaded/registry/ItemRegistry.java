@@ -11,7 +11,7 @@ import static dev.denismasterherobrine.travellersbootsreloaded.TravellersBootsRe
 import static dev.denismasterherobrine.travellersbootsreloaded.armor.material.TravellersBootsMaterials.*;
 
 public class ItemRegistry {
-    public static final DeferredRegister<Item> ITEMS = DeferredRegister.create(MOD_ID, Registry.ITEM_REGISTRY);
+    private static final DeferredRegister<Item> ITEMS = DeferredRegister.create(MOD_ID, Registry.ITEM_REGISTRY);
 
     public static RegistrySupplier<Item> TRAVELLERS_BOOTS_TIER_1 = ITEMS.register(
             "travellers_boots_tier1",

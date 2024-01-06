@@ -101,7 +101,7 @@ public class ArchConfiguration {
                 return Integer.parseInt(defaultValue);
             } else {
                 Logger.getLogger(MOD_ID).severe("[Traveller's Boots: Reloaded - ArchConfiguration] Default value for Integer property " + key + " is not defined. Please define it in defaultProperties.");
-                return 0;  // or some other default value
+                return 0;
             }
         }
     }
