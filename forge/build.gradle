@@ -1,10 +1,13 @@
 plugins {
     id "com.github.johnrengelman.shadow" version "7.1.2"
 }
+
 architectury {
     platformSetupLoomIde()
     forge()
 }
+
+version = "${mod_version}-forge"
 
 configurations {
     common
@@ -24,7 +27,7 @@ dependencies {
 }
 
 processResources {
-    inputs.property "version", project.version + "-forge"
+    inputs.property "version", project.version
 
     filesMatching("META-INF/mods.toml") {
         expand "version": project.version
