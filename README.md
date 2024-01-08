@@ -5,7 +5,7 @@
 ![https://github.com/DenisMasterHerobrine/TravellersBootsReloaded](https://img.shields.io/github/license/DenisMasterHerobrine/TravellersBootsReloaded)
 ![https://github.com/DenisMasterHerobrine/TravellersBootsReloaded](https://img.shields.io/github/issues/denismasterherobrine/TravellersBootsReloaded)
 
-<img src="https://github.com/DenisMasterHerobrine/TravellersBootsReloaded/blob/dev/1.19.2/assets/Available_Fabric_Banner.png?raw=true" alt="Available for Fabric!" width="300" height="100" align="center"> <img src="https://github.com/DenisMasterHerobrine/TravellersBootsReloaded/blob/dev/1.19.2/assets/Available_Forge_Banner.png?raw=true" alt="Available for Forge!" width="300" height="100" align="center"> <img src="https://github.com/DenisMasterHerobrine/TravellersBootsReloaded/blob/dev/1.19.2/assets/Requires_Architectury_Banner.png?raw=true" alt="Requires Architectury API" width="367" height="100" align="center">
+<img src="https://github.com/DenisMasterHerobrine/TravellersBootsReloaded/blob/dev/1.19.2/assets/Available_Fabric_Banner.png?raw=true" alt="Available for Fabric!" width="300" height="100"> <img src="https://github.com/DenisMasterHerobrine/TravellersBootsReloaded/blob/dev/1.19.2/assets/Available_Forge_Banner.png?raw=true" alt="Available for Forge!" width="300" height="100"> <img src="https://github.com/DenisMasterHerobrine/TravellersBootsReloaded/blob/dev/1.19.2/assets/Requires_Architectury_Banner.png?raw=true" alt="Requires Architectury API" width="367" height="100">
 
 <div align="center">This small mod adds 5 types of boots, which can help you to speed up exploring the world and gives you speed or increases your step height. </div>
 <br>
