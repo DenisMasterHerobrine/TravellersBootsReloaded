@@ -1,0 +1,26 @@
+{
+  "type": "crafting_shaped",
+  "pattern": [
+    "CTC",
+    "BPB",
+    "   "
+  ],
+  "key": {
+    "C": {
+      "item": "minecraft:light_blue_carpet"
+    },
+    "B": {
+      "item": "minecraft:diamond_block"
+    },
+    "P": {
+      "item": "minecraft:prismarine_shard"
+    },
+    "T": {
+      "item": "travellersbootsreloaded:travellers_boots_tier2"
+    }
+  },
+  "result": {
+    "item": "travellersbootsreloaded:travellers_boots_tier3",
+    "count": 1
+  }
+}

@@ -7,7 +7,9 @@
   "description": "A new and rewritten version of original Traveller's Boots for 1.19.2+ using modern Architectury toolchain.",
   "authors": ["DenisMasterHerobrine"],
   "contact": {
-    "issues": "https://github.com/DenisMasterHerobrine/TravellersBootsReloaded/issues"
+    "issues": "https://github.com/DenisMasterHerobrine/TravellersBootsReloaded/issues",
+    "website": "https://www.curseforge.com/minecraft/mc-mods/travellers-boots",
+    "source": "https://github.com/DenisMasterHerobrine/TravellersBootsReloaded"
   },
   "license": "MIT",
   "icon": "icon.png",

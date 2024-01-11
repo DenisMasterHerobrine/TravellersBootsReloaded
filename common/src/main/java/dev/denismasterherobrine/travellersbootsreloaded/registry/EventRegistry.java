@@ -24,7 +24,6 @@ public class EventRegistry {
     static int jumpModifierTier4 = config.getInteger("jumpModifierTier4");
     static int jumpModifierTier5 = config.getInteger("jumpModifierTier5");
 
-
     public static void register() {
         AtomicReference<UUID> uuid = new AtomicReference<>();
 
@@ -59,7 +58,7 @@ public class EventRegistry {
                         });
 
                         switch (currentBootsTier.getPlain()) {
-                            case 0: {
+                            case 0, 1: {
                                 if (player.isShiftKeyDown()) {
                                     player.maxUpStep = 0.6f;
                                 } else {
@@ -114,50 +113,24 @@ public class EventRegistry {
 
                             switch (currentBootsTier.getPlain()) {
                                 case 0: {
-                                    if (!isStepHeightEnabled) {
-                                        break;
-                                    }
-
-                                    if (player.isShiftKeyDown() && player.maxUpStep < 1.0f) {
-                                        player.maxUpStep = 0.6f;
-                                    } else {
-                                        player.maxUpStep = 0.75f;
-                                    }
                                     break;
                                 }
 
                                 case 1: {
                                     player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 1, speedModifierTier1));
+
                                     break;
                                 }
 
                                 case 2: {
                                     player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 1, speedModifierTier2));
 
-                                    if (!isStepHeightEnabled) {
-                                        break;
-                                    }
-
-                                    if (player.isShiftKeyDown()) {
-                                        player.maxUpStep = 0.6f;
-                                    } else {
-                                        player.maxUpStep = 1.25f;
-                                    }
                                     break;
                                 }
 
                                 case 3: {
                                     player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 1, speedModifierTier3));
 
-                                    if (!isStepHeightEnabled) {
-                                        break;
-                                    }
-
-                                    if (player.isShiftKeyDown()) {
-                                        player.maxUpStep = 0.6f;
-                                    } else {
-                                        player.maxUpStep = 1.25f;
-                                    }
                                     break;
                                 }
 
@@ -165,15 +138,6 @@ public class EventRegistry {
                                     player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 1, speedModifierTier4));
                                     player.addEffect(new MobEffectInstance(MobEffects.JUMP, 1, jumpModifierTier4));
 
-                                    if (!isStepHeightEnabled) {
-                                        break;
-                                    }
-
-                                    if (player.isShiftKeyDown()) {
-                                        player.maxUpStep = 0.6f;
-                                    } else {
-                                        player.maxUpStep = 1.25f;
-                                    }
                                     break;
                                 }
 
@@ -181,15 +145,6 @@ public class EventRegistry {
                                     player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 1, speedModifierTier5));
                                     player.addEffect(new MobEffectInstance(MobEffects.JUMP, 1, jumpModifierTier5));
 
-                                    if (!isStepHeightEnabled) {
-                                        break;
-                                    }
-
-                                    if (player.isShiftKeyDown()) {
-                                        player.maxUpStep = 0.6f;
-                                    } else {
-                                        player.maxUpStep = 1.25f;
-                                    }
                                     break;
                                 }
                             }

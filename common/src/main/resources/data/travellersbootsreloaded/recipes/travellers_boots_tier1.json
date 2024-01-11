@@ -1,0 +1,26 @@
+{
+    "type": "crafting_shaped",
+    "pattern": [
+        "SBS",
+        "LFL",
+        "   "
+    ],
+    "key": {
+        "S": {
+            "item": "minecraft:string"
+        },
+        "L": {
+            "item": "minecraft:leather"
+        },
+        "B": {
+            "item": "minecraft:leather_boots"
+        },
+        "F": {
+            "item": "minecraft:feather"
+        }
+    },
+    "result": {
+        "item": "travellersbootsreloaded:travellers_boots_tier1",
+        "count": 1
+    }
+}

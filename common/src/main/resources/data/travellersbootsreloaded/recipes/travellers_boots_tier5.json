@@ -1,0 +1,13 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "travellersbootsreloaded:travellers_boots_tier4"
+  },
+  "addition": {
+    "item": "minecraft:netherite_ingot"
+  },
+  "result": {
+    "item": "travellersbootsreloaded:travellers_boots_tier5",
+    "count": 1
+  }
+}

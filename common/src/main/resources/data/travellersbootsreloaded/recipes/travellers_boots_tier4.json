@@ -1,0 +1,26 @@
+{
+  "type": "crafting_shaped",
+  "pattern": [
+    "STS",
+    "EPE",
+    "   "
+  ],
+  "key": {
+    "S": {
+      "item": "minecraft:scute"
+    },
+    "E": {
+      "item": "minecraft:emerald_block"
+    },
+    "P": {
+      "item": "minecraft:moss_block"
+    },
+    "T": {
+      "item": "travellersbootsreloaded:travellers_boots_tier3"
+    }
+  },
+  "result": {
+    "item": "travellersbootsreloaded:travellers_boots_tier4",
+    "count": 1
+  }
+}
