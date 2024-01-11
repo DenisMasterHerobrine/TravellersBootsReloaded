@@ -18,12 +18,9 @@ jumps.
 <div align="center"><h1><title_name>Compatibility</title_name></div>
 
 - Compatible with mostly every mod at the moment, however some mod interactions may change boots behaviour at some point.
-
-<br>
 <div align="center"><h1><title_name>Creating an Issue</title_name></div>
 
 To create an issue, go to Issues tab and click "New Issue", write a bug/suggestion and send it. Please, don't copy-paste crash-reports into the issue, use Pastebin or Hastebin instead and provide a link to crash-report. Also you may use mclo.gs for that.
-<br>
 <br>
 <div align="center"><h1><title_name>Why Reloaded?</title_name></div>
 
