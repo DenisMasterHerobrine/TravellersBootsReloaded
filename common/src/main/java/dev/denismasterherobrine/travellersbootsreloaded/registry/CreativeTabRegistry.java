@@ -1,5 +1,6 @@
 package dev.denismasterherobrine.travellersbootsreloaded.registry;
 
+import dev.architectury.platform.Platform;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
 import dev.denismasterherobrine.travellersbootsreloaded.TravellersBootsReloaded;
@@ -18,13 +19,16 @@ public class CreativeTabRegistry {
                     new ItemStack(TRAVELLERS_BOOTS_TIER_1.get())));
 
     public static void init() {
-        dev.architectury.registry.CreativeTabRegistry.append(TRAVELLERS_BOOTS_TAB,
-                TRAVELLERS_BOOTS_TIER_1.get(),
-                TRAVELLERS_BOOTS_TIER_2.get(),
-                TRAVELLERS_BOOTS_TIER_3.get(),
-                TRAVELLERS_BOOTS_TIER_4.get(),
-                TRAVELLERS_BOOTS_TIER_5.get()
-        );
+        // Forge automatically puts all the items registered to our MOD_ID by default. Unknown if this is intended, but yolo.
+        if (Platform.isFabric()) {
+            dev.architectury.registry.CreativeTabRegistry.append(TRAVELLERS_BOOTS_TAB,
+                    TRAVELLERS_BOOTS_TIER_1.get(),
+                    TRAVELLERS_BOOTS_TIER_2.get(),
+                    TRAVELLERS_BOOTS_TIER_3.get(),
+                    TRAVELLERS_BOOTS_TIER_4.get(),
+                    TRAVELLERS_BOOTS_TIER_5.get()
+            );
+        }
 
         CREATIVE_TAB_REGISTRY.register();
     }
