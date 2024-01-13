@@ -25,5 +25,7 @@ public class CreativeTabRegistry {
                 TRAVELLERS_BOOTS_TIER_4.get(),
                 TRAVELLERS_BOOTS_TIER_5.get()
         );
+
+        CREATIVE_TAB_REGISTRY.register();
     }
 }
