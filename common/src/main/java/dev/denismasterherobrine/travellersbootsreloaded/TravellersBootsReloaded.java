@@ -1,6 +1,7 @@
 package dev.denismasterherobrine.travellersbootsreloaded;
 
 import dev.denismasterherobrine.travellersbootsreloaded.config.ArchConfiguration;
+import dev.denismasterherobrine.travellersbootsreloaded.registry.CreativeTabRegistry;
 import dev.denismasterherobrine.travellersbootsreloaded.registry.EventRegistry;
 import dev.denismasterherobrine.travellersbootsreloaded.registry.ItemRegistry;
 
@@ -10,6 +11,7 @@ public class TravellersBootsReloaded {
 
 	public static void init() {
 		ItemRegistry.init();
+		CreativeTabRegistry.init();
 		EventRegistry.register();
 	}
 }

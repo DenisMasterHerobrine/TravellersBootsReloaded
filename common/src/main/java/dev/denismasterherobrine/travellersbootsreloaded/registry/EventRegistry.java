@@ -60,18 +60,22 @@ public class EventRegistry {
                         switch (currentBootsTier.getPlain()) {
                             case 0, 1: {
                                 if (player.isShiftKeyDown()) {
-                                    player.maxUpStep = 0.6f;
+                                    player.setMaxUpStep(0.6f);
+                                    player.maxUpStep();
                                 } else {
-                                    player.maxUpStep = 0.75f;
+                                    player.setMaxUpStep(0.75f);
+                                    player.maxUpStep();
                                 }
                                 break;
                             }
 
                             case 2, 3, 4, 5: {
                                 if (player.isShiftKeyDown()) {
-                                    player.maxUpStep = 0.6f;
+                                    player.setMaxUpStep(0.6f);
+                                    player.maxUpStep();
                                 } else {
-                                    player.maxUpStep = 1.25f;
+                                    player.setMaxUpStep(1.25f);
+                                    player.maxUpStep();
                                 }
                                 break;
                             }
