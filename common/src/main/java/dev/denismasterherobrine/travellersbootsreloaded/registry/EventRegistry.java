@@ -4,153 +4,86 @@ import dev.architectury.event.events.common.TickEvent;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 
+import java.util.HashSet;
+import java.util.Set;
 import java.util.UUID;
-import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicReference;
+import java.util.stream.StreamSupport;
 
 import static dev.denismasterherobrine.travellersbootsreloaded.TravellersBootsReloaded.config;
-import static dev.denismasterherobrine.travellersbootsreloaded.registry.ItemRegistry.*;
 
 public class EventRegistry {
     static boolean isStepHeightEnabled = config.getBoolean("isStepHeightEnabled");
 
-    static int speedModifierTier1 = config.getInteger("speedModifierTier1");
-    static int speedModifierTier2 = config.getInteger("speedModifierTier2");
-    static int speedModifierTier3 = config.getInteger("speedModifierTier3");
-    static int speedModifierTier4 = config.getInteger("speedModifierTier4");
-    static int speedModifierTier5 = config.getInteger("speedModifierTier5");
+    static int[] speedModifiers = {
+            config.getInteger("speedModifierTier1"),
+            config.getInteger("speedModifierTier2"),
+            config.getInteger("speedModifierTier3"),
+            config.getInteger("speedModifierTier4"),
+            config.getInteger("speedModifierTier5")
+    };
 
-    static int jumpModifierTier4 = config.getInteger("jumpModifierTier4");
-    static int jumpModifierTier5 = config.getInteger("jumpModifierTier5");
+    static int[] jumpModifiers = {
+            0,
+            0,
+            0,
+            config.getInteger("jumpModifierTier4"),
+            config.getInteger("jumpModifierTier5")
+    };
 
     public static void register() {
-        AtomicReference<UUID> uuid = new AtomicReference<>();
+        Set<UUID> uuids = new HashSet<>();
 
-        // Update the height on the client and give the player UUID to SERVER_POST.
-        TickEvent.PLAYER_PRE.register(
-                (player) -> {
-                    uuid.set(player.getUUID());
+        TickEvent.PLAYER_PRE.register(player -> {
+            UUID uuid = player.getUUID();
 
-                    if (isStepHeightEnabled) {
-                        AtomicInteger currentBootsTier = new AtomicInteger(0);
+            if (isStepHeightEnabled) {
+                int currentBootsTier = getBootsTier(player);
+                player.maxUpStep = player.isShiftKeyDown() ? 0.6f : (currentBootsTier > 1 ? 1.25f : 0.75f);
 
-                        player.getArmorSlots().forEach(itemStack -> {
-                            if (itemStack.getItem().getDefaultInstance().getItem() == TRAVELLERS_BOOTS_TIER_1.get()) {
-                                currentBootsTier.set(1);
-                            }
+                if (currentBootsTier > 0) {
+                    uuids.add(uuid);
+                } else {
+                    uuids.remove(uuid);
+                }
+            }
+        });
 
-                            if (itemStack.getItem().getDefaultInstance().getItem() == TRAVELLERS_BOOTS_TIER_2.get()) {
-                                currentBootsTier.set(2);
-                            }
+        TickEvent.SERVER_POST.register(server -> {
+            for (UUID uuid : uuids) {
+                ServerPlayer player = server.getPlayerList().getPlayer(uuid);
 
-                            if (itemStack.getItem().getDefaultInstance().getItem() == TRAVELLERS_BOOTS_TIER_3.get()) {
-                                currentBootsTier.set(3);
-                            }
+                if (player != null) {
+                    int currentBootsTier = getBootsTier(player);
 
-                            if (itemStack.getItem().getDefaultInstance().getItem() == TRAVELLERS_BOOTS_TIER_4.get()) {
-                                currentBootsTier.set(4);
-                            }
-
-                            if (itemStack.getItem().getDefaultInstance().getItem() == TRAVELLERS_BOOTS_TIER_5.get()) {
-                                currentBootsTier.set(5);
-                            }
-                        });
-
-                        switch (currentBootsTier.getPlain()) {
-                            case 0, 1: {
-                                if (player.isShiftKeyDown()) {
-                                    player.maxUpStep = 0.6f;
-                                } else {
-                                    player.maxUpStep = 0.75f;
-                                }
-                                break;
-                            }
-
-                            case 2, 3, 4, 5: {
-                                if (player.isShiftKeyDown()) {
-                                    player.maxUpStep = 0.6f;
-                                } else {
-                                    player.maxUpStep = 1.25f;
-                                }
-                                break;
-                            }
-                        }
+                    if (currentBootsTier > 0) {
+                        player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 1, speedModifiers[currentBootsTier - 1]));
+                        player.addEffect(new MobEffectInstance(MobEffects.JUMP, 1, jumpModifiers[currentBootsTier - 1]));
                     }
                 }
-        );
+            }
+        });
+    }
 
-        // Update the same to the server and apply the effects on SERVER_POST side.
-        TickEvent.SERVER_POST.register(
-                (server) -> {
-                    if (uuid.get() != null) {
-                        ServerPlayer player = server.getPlayerList().getPlayer(uuid.get());
+    private static int getBootsTier(Player player) {
+        Item[] TRAVELLERS_BOOTS = {
+                ItemRegistry.TRAVELLERS_BOOTS_TIER_1.get(),
+                ItemRegistry.TRAVELLERS_BOOTS_TIER_2.get(),
+                ItemRegistry.TRAVELLERS_BOOTS_TIER_3.get(),
+                ItemRegistry.TRAVELLERS_BOOTS_TIER_4.get(),
+                ItemRegistry.TRAVELLERS_BOOTS_TIER_5.get()
+        };
 
-                        if (player != null) {
-                            AtomicInteger currentBootsTier = new AtomicInteger(0);
+        for (int i = 4; i >= 0; i--) {
+            int finalI = i;
 
-                            player.getArmorSlots().forEach(itemStack -> {
-                                if (itemStack.getItem().getDefaultInstance().getItem() == TRAVELLERS_BOOTS_TIER_1.get()) {
-                                    currentBootsTier.set(1);
-                                }
-
-                                if (itemStack.getItem().getDefaultInstance().getItem() == TRAVELLERS_BOOTS_TIER_2.get()) {
-                                    currentBootsTier.set(2);
-                                }
-
-                                if (itemStack.getItem().getDefaultInstance().getItem() == TRAVELLERS_BOOTS_TIER_3.get()) {
-                                    currentBootsTier.set(3);
-                                }
-
-                                if (itemStack.getItem().getDefaultInstance().getItem() == TRAVELLERS_BOOTS_TIER_4.get()) {
-                                    currentBootsTier.set(4);
-                                }
-
-                                if (itemStack.getItem().getDefaultInstance().getItem() == TRAVELLERS_BOOTS_TIER_5.get()) {
-                                    currentBootsTier.set(5);
-                                }
-                            });
-
-                            switch (currentBootsTier.getPlain()) {
-                                case 0: {
-                                    break;
-                                }
-
-                                case 1: {
-                                    player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 1, speedModifierTier1));
-
-                                    break;
-                                }
-
-                                case 2: {
-                                    player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 1, speedModifierTier2));
-
-                                    break;
-                                }
-
-                                case 3: {
-                                    player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 1, speedModifierTier3));
-
-                                    break;
-                                }
-
-                                case 4: {
-                                    player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 1, speedModifierTier4));
-                                    player.addEffect(new MobEffectInstance(MobEffects.JUMP, 1, jumpModifierTier4));
-
-                                    break;
-                                }
-
-                                case 5: {
-                                    player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 1, speedModifierTier5));
-                                    player.addEffect(new MobEffectInstance(MobEffects.JUMP, 1, jumpModifierTier5));
-
-                                    break;
-                                }
-                            }
-                        }
-                    }
-                }
-        );
+            if (StreamSupport.stream(player.getArmorSlots().spliterator(), false)
+                    .anyMatch(itemStack -> itemStack.getItem().getDefaultInstance().getItem() == TRAVELLERS_BOOTS[finalI])) {
+                return i + 1;
+            }
+        }
+        return 0;
     }
 }

@@ -48,11 +48,15 @@ A new and rewritten version of original Traveller's Boots for 1.19.2+ using mode
    ordering="NONE"
    # Side this dependency is applied on - BOTH, CLIENT or SERVER
    side="BOTH"
-# Here's another dependency
 [[dependencies.travellersbootsreloaded]]
    modId="minecraft"
    mandatory=true
-   # This version range declares a minimum of the current minecraft version up to but not including the next major version
    versionRange="[1.19,1.20)"
+   ordering="NONE"
+   side="BOTH"
+[[dependencies.travellersbootsreloaded]]
+   modId="architectury"
+   mandatory=true
+   versionRange="[6.0,7.0)"
    ordering="NONE"
    side="BOTH"
