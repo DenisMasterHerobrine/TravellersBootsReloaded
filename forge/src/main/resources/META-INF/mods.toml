@@ -56,3 +56,10 @@ A new and rewritten version of original Traveller's Boots for 1.19.2+ using mode
    versionRange="[1.20,1.21)"
    ordering="NONE"
    side="BOTH"
+[[dependencies.travellersbootsreloaded]]
+   modId="architectury"
+   mandatory=true
+   # This version range declares a minimum of the current minecraft version up to but not including the next major version
+   versionRange="[9.1,)"
+   ordering="NONE"
+   side="BOTH"
