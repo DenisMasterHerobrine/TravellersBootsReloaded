@@ -59,8 +59,8 @@ public class EventRegistry {
                     int currentBootsTier = getBootsTier(player);
 
                     if (currentBootsTier > 0) {
-                        player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 1, speedModifiers[currentBootsTier - 1]));
-                        player.addEffect(new MobEffectInstance(MobEffects.JUMP, 1, jumpModifiers[currentBootsTier - 1]));
+                        player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 20, speedModifiers[currentBootsTier - 1]));
+                        player.addEffect(new MobEffectInstance(MobEffects.JUMP, 20, jumpModifiers[currentBootsTier - 1]));
                     }
                 }
             }
