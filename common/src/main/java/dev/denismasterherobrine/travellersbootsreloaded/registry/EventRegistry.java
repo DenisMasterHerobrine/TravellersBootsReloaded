@@ -39,15 +39,16 @@ public class EventRegistry {
         TickEvent.PLAYER_PRE.register(player -> {
             UUID uuid = player.getUUID();
 
-            if (isStepHeightEnabled) {
-                int currentBootsTier = getBootsTier(player);
-                player.setMaxUpStep(player.isShiftKeyDown() ? 0.6f : (currentBootsTier > 1 ? 1.25f : 0.75f));
+            int currentBootsTier = getBootsTier(player);
 
-                if (currentBootsTier > 0) {
-                    uuids.add(uuid);
-                } else {
-                    uuids.remove(uuid);
-                }
+            if (currentBootsTier > 0) {
+                uuids.add(uuid);
+            } else {
+                uuids.remove(uuid);
+            }
+
+            if (isStepHeightEnabled) {
+                player.setMaxUpStep(player.isShiftKeyDown() ? 0.6f : (currentBootsTier > 1 ? 1.25f : 0.75f));
             }
         });
 
