@@ -39,15 +39,16 @@ public class EventRegistry {
         TickEvent.PLAYER_PRE.register(player -> {
             UUID uuid = player.getUUID();
 
-            if (isStepHeightEnabled) {
-                int currentBootsTier = getBootsTier(player);
-                player.maxUpStep = player.isShiftKeyDown() ? 0.6f : (currentBootsTier > 1 ? 1.25f : 0.75f);
+            int currentBootsTier = getBootsTier(player);
 
-                if (currentBootsTier > 0) {
-                    uuids.add(uuid);
-                } else {
-                    uuids.remove(uuid);
-                }
+            if (currentBootsTier > 0) {
+                uuids.add(uuid);
+            } else {
+                uuids.remove(uuid);
+            }
+
+            if (isStepHeightEnabled) {
+                player.maxUpStep = player.isShiftKeyDown() ? 0.6f : (currentBootsTier > 1 ? 1.25f : 0.75f);
             }
         });
 
@@ -59,8 +60,8 @@ public class EventRegistry {
                     int currentBootsTier = getBootsTier(player);
 
                     if (currentBootsTier > 0) {
-                        player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 1, speedModifiers[currentBootsTier - 1]));
-                        player.addEffect(new MobEffectInstance(MobEffects.JUMP, 1, jumpModifiers[currentBootsTier - 1]));
+                        player.addEffect(new MobEffectInstance(MobEffects.MOVEMENT_SPEED, 20, speedModifiers[currentBootsTier - 1]));
+                        player.addEffect(new MobEffectInstance(MobEffects.JUMP, 20, jumpModifiers[currentBootsTier - 1]));
                     }
                 }
             }
