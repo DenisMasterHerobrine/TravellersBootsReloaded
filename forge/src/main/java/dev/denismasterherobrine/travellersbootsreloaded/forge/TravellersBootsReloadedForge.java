@@ -1,4 +1,4 @@
-package dev.denismasterherobrine.travellersbootsreloaded.forge;
+package dev.denismasterherobrine.travellersbootsreloaded.neoforge;
 
 import dev.architectury.platform.forge.EventBuses;
 import dev.denismasterherobrine.travellersbootsreloaded.TravellersBootsReloaded;
