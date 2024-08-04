@@ -58,6 +58,7 @@ public class ItemRegistry {
     );
 
     public static void init() {
+        System.out.println("Registering items...");
         ITEMS.register();
     }
 }
